@@ -46,8 +46,6 @@ class redis (
   $redis_pkg_name = "redis-${version}.tar.gz"
   $redis_pkg = "${redis_src_dir}/${redis_pkg_name}"
 
-  # Install default instance
-  redis::instance { 'redis-default': }
 
   File {
     owner => root,
@@ -64,16 +62,6 @@ class redis (
     path   => '/var/lib/redis',
   }
 
-  # If the version is 2.4.13, use the tarball that ships with the
-  # module.
-  if ($version == '2.4.13') {
-    file { 'redis-pkg':
-      ensure => present,
-      path   => $redis_pkg,
-      mode   => '0644',
-      source => 'puppet:///modules/redis/redis-2.4.13.tar.gz',
-    }
-  }
   exec { 'get-redis-pkg':
     command => "/usr/bin/wget --output-document ${redis_pkg} http://redis.googlecode.com/files/${redis_pkg_name}",
     unless  => "/usr/bin/test -f ${redis_pkg}",

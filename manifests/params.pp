@@ -28,5 +28,6 @@ class redis::params {
   $redis_slowlog_max_len = 1024
   $redis_password = false
   $redis_persist = true
+  $maxmemory_allkeys_lru = false
 
 }

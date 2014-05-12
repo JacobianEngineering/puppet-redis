@@ -222,6 +222,9 @@ maxmemory <%= @redis_max_memory %>
 # The default is:
 #
 # maxmemory-policy volatile-lru
+<% if @maxmemory_allkeys_lru %>
+maxmemory-policy allkeys-lru
+<% end %>
 
 # LRU and minimal TTL algorithms are not precise algorithms but approximated
 # algorithms (in order to save memory), so you can select as well the sample
